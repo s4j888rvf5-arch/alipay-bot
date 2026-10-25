@@ -9,7 +9,13 @@ from aiogram import Bot, Dispatcher, F
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import Command, CommandStart
-from aiogram.types import LinkPreviewOptions, Message
+from aiogram.types import (
+    CallbackQuery,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    LinkPreviewOptions,
+    Message,
+)
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 
 # ---------- настройки из переменных окружения ----------
@@ -111,9 +117,16 @@ def rate_text() -> str:
     )
 
 
+def rate_keyboard() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        inline_keyboard=[[InlineKeyboardButton(text="Актуальный курс", callback_data="rate")]]
+    )
+
+
 async def reply_with_rate(message: Message):
     await message.answer(
         rate_text(),
+        reply_markup=rate_keyboard(),
         link_preview_options=LinkPreviewOptions(
             is_disabled=False,
             url=manager_url(),       # карточка аккаунта менеджера под текстом
@@ -130,6 +143,12 @@ dp = Dispatcher()
 @dp.message(Command("rate"))
 async def send_rate(message: Message):
     await reply_with_rate(message)
+
+
+@dp.callback_query(F.data == "rate")
+async def on_rate_button(call: CallbackQuery):
+    await call.answer()
+    await reply_with_rate(call.message)
 
 
 # ---------- команды администратора ----------
