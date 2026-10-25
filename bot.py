@@ -107,15 +107,7 @@ def rate_text() -> str:
         "💵 <b>USDT</b>\n"
         f"├ <b>USDT - CNY:</b> {fmt(r['usdt_cny'], 2)}\n"
         f"└ {fmt(1000 / r['usdt_cny'])} USDT = 1000 CNY\n\n"
-        "<blockquote>"
-        "↙️ <b>USDT ПОКУПКА</b>\n"
-        f"├ <b>USDT:</b> {fmt(r['usdt_buy'], 2)}\n"
-        f"└ {fmt(r['usdt_buy'] * 1000, 2)} RUB = 1000 USDT\n\n"
-        "↗️ <b>USDT ПРОДАЖА</b>\n"
-        f"├ <b>USDT ASK:</b> {fmt(r['usdt_sell'], 2)}\n"
-        f"└ {fmt(r['usdt_sell'] * 1000, 2)} RUB = 1000 USDT"
-        "</blockquote>\n\n"
-        f'🤝 <b><a href="{manager_url()}">ТВОЙ НАДЁЖНЫЙ ПАРТНЁР</a></b>'
+        f'🤝 <b><a href="{manager_url()}">ПОПОЛНИТЬ АЛИПЕЙ</a></b>'
     )
 
 
